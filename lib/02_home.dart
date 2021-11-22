@@ -1,85 +1,86 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'main.dart';
+import '00_admob_baner.dart';
 import '02_team_registration.dart';
-
-
-class Home extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: HomePage(),
-    );
-  }
-}
+import '02_subscription.dart';
+import '02_search.dart';
+import '02_history.dart';
+import 'setting/02_my_account.dart';
 
 
 class HomePage extends StatefulWidget {
+  final String user_id;
+  HomePage({Key? key,required this.user_id}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePage createState() => _HomePage();
 }
 
 
-class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+class _HomePage extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  late String user_id;
+  late PageController _pageController;
+  int _screen = 0;
 
-  void _onTap(int value) {
-    setState(() {
-      _selectedIndex = value;
-    });
+  List<BottomNavigationBarItem> myBottomNavBarItems() {
+    return [
+      BottomNavigationBarItem(icon: Icon(Icons.sports_soccer ), label: "作成"),
+      BottomNavigationBarItem(icon: Icon(Icons.search), label: "検索"),
+      BottomNavigationBarItem(icon: Icon(Icons.folder), label: "履歴"),
+      BottomNavigationBarItem(icon: Icon(Icons.settings), label: "設定"),
+    ];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.user_id = widget.user_id;
+    _pageController = PageController(
+      initialPage: _screen,
+    );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      drawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              Container(
-                height: 60.0,
-                child: DrawerHeader(
-                  child: Text("メニュー"),
-                  decoration: BoxDecoration(
-                  ),
-                ),
-              ),
-              ListTile(
-                title: Text('操作手順書',style: TextStyle(color: Colors.black54)),
-              ),
-              ListTile(
-                title: Text('問い合わせ',style: TextStyle(color: Colors.black54)),
-              )
-            ],
-          )
-      ),
+      backgroundColor: const Color(0xFFF2FFE4),
+      body: PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
+            setState(() {
+              _screen = index;
+            });
+          },
 
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              '$_selectedIndex',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
+          children: [
+            Subscription(),
+            Search(),
+            History(),
+            MyAccount(),
+
+          ]),
+
       bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "作成"),
-          BottomNavigationBarItem(icon: Icon(Icons.web), label: "検索"),
-          BottomNavigationBarItem(icon: Icon(Icons.share), label: "履歴"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "設定"),
-        ],
-        currentIndex: _selectedIndex,
-        type: BottomNavigationBarType.shifting,
-        unselectedItemColor: Theme.of(context).disabledColor,
-        selectedItemColor: Theme.of(context).accentColor,
-        onTap: _onTap,
+        currentIndex: _screen,
+        onTap: (index) {
+          setState(() {
+            _screen = index;
+            _pageController.animateToPage(index,
+                duration: Duration(milliseconds: 500), curve: Curves.easeOut);
+          });
+        },
+        items: myBottomNavBarItems(),
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.black54,
       ),
     );
   }

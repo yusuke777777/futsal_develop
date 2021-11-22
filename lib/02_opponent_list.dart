@@ -7,7 +7,6 @@ class OpponentList extends StatefulWidget {
   _OpponentListState createState() => _OpponentListState();
 }
 
-
 class _OpponentListState extends State<OpponentList> {
   @override
   Widget build(BuildContext context) {

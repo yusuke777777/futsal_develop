@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '02_home.dart';
+import '01_firebase.dart';
 
 class TeamR extends StatefulWidget {
   @override
@@ -8,8 +9,8 @@ class TeamR extends StatefulWidget {
 
 class _TeamRState extends State<TeamR> {
   var teamIdCtl = TextEditingController();
-  var teamNameCtl = TextEditingController();
   var teamPassWord = TextEditingController();
+  var teamNameCtl = TextEditingController();
   var memberNameCtl = TextEditingController();
   var levelCtl = TextEditingController();
   var activeLocationCtl = TextEditingController();
@@ -32,6 +33,16 @@ class _TeamRState extends State<TeamR> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'チームID',
+                ),
+              )
+          ),
+          Align(
+              alignment: Alignment.center,
+              child: TextField(
+                controller: teamPassWord,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'パスワード(8文字以上)',
                 ),
               )
           ),
@@ -99,9 +110,18 @@ class _TeamRState extends State<TeamR> {
             alignment: Alignment.center,
             child: ElevatedButton(
                 child: Text('登録'),
-                onPressed: () {
+                onPressed: () async {
+                  String teamId = teamIdCtl.text;
+                  String teamPass = teamPassWord.text;
+                  String teamName = teamNameCtl.text;
+                  String memberName = memberNameCtl.text;
+                  String level = levelCtl.text;
+                  String activeLocation = activeLocationCtl.text;
+                  String mission = missionCtl.text;
+                  String address = addressCtl.text;
+                  await firebaseMethod().createTeamInfo(teamId: teamId, teamPass: teamPass, teamName: teamName, memberName: memberName, level: level, activeLocation: activeLocation, mission: mission, address: address);
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => HomePage()));
+                      context, MaterialPageRoute(builder: (context) => HomePage(user_id: "")));
                 }
             ),
           ),
