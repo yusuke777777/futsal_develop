@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'main.dart';
-import '00_admob_baner.dart';
-import '02_team_registration.dart';
 import '02_subscription.dart';
-import '02_search.dart';
+import 'search/02_search.dart';
 import '02_history.dart';
 import 'setting/02_my_account.dart';
 

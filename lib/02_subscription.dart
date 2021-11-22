@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import '00_admob_baner.dart';
 import '02_home.dart';
 
@@ -11,7 +12,7 @@ class Subscription extends StatefulWidget {
 }
 
 class _SubscriptionState extends State<Subscription> {
-  late DateTime _dateTime;
+  String batolDateTime = "選択してください";
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class _SubscriptionState extends State<Subscription> {
       backgroundColor: const Color(0xFFF2FFE4),
       appBar: AppBar(
         title: Text('対戦チケットを発行'),
+        backgroundColor: const Color(0xFF3CB371),
       ),
       drawer: Drawer(
           child: ListView(
@@ -51,10 +53,10 @@ class _SubscriptionState extends State<Subscription> {
           Container(
             padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
             child: Container(
-              padding: EdgeInsets.fromLTRB(15.0, 20.0, 15.0, 20.0),
+              padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
-                  color: Color(0xAD9CDB65)),
+                  color: Color(0x8D99D472)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -67,7 +69,7 @@ class _SubscriptionState extends State<Subscription> {
                           padding: EdgeInsets.fromLTRB(1.0, 10.0, 1.0, 10.0),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              color: Color(0xADE0FFC7)),
+                              color: Color(0x9E3CB371)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -80,19 +82,24 @@ class _SubscriptionState extends State<Subscription> {
                                         text: TextSpan(
                                           children: [
                                             WidgetSpan(
-                                              child: Icon(Icons.face, size: 16),
+                                              child: Icon(Icons.face,
+                                                  size: 16,
+                                                  color: Colors.white70),
                                             ),
                                             TextSpan(
                                               text: 'チーム名',
                                               style: TextStyle(
                                                   fontSize: 14,
-                                                  color: Colors.black),
+                                                  color: Colors.white70),
                                             ),
                                           ],
                                         ),
                                       )),
                                       Container(
-                                        child: Text('RBC'),
+                                        child: Text(
+                                          'RBC',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -108,19 +115,23 @@ class _SubscriptionState extends State<Subscription> {
                                             WidgetSpan(
                                               child: Icon(
                                                   Icons.star_rate_outlined,
+                                                  color: Colors.white70,
                                                   size: 16),
                                             ),
                                             TextSpan(
                                               text: 'ランク',
                                               style: TextStyle(
                                                   fontSize: 14,
-                                                  color: Colors.black),
+                                                  color: Colors.white70),
                                             ),
                                           ],
                                         ),
                                       )),
                                       Container(
-                                        child: Text('Lev.1'),
+                                        child: Text(
+                                          'Lev.1',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -133,236 +144,293 @@ class _SubscriptionState extends State<Subscription> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xADE0FFC7)),
+                    padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                    child: RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      WidgetSpan(
-                                        child: Icon(Icons.calendar_today_sharp,
-                                            size: 14),
-                                      ),
-                                      TextSpan(
-                                        text: '希望日時を選択',
-                                        style: TextStyle(
-                                            fontSize: 14, color: Colors.black),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color(0x9E3CB371)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                          child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            WidgetSpan(
+                                              child: Icon(
+                                                  Icons.calendar_today_sharp,
+                                                  color: Colors.white70,
+                                                  size: 14),
+                                            ),
+                                            TextSpan(
+                                              text: '希望日時を選択',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.white70),
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+                                      Container(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            TextButton(
+                                              child: Text(
+                                                batolDateTime,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.blueAccent),
+                                              ),
+                                              onPressed: () {
+                                                showDatePicker(
+                                                        context: context,
+                                                        locale:
+                                                            const Locale("ja"),
+                                                        initialDate:
+                                                            DateTime.now(),
+                                                        firstDate:
+                                                            DateTime(2021),
+                                                        lastDate:
+                                                            DateTime(2050))
+                                                    .then((date) {
+                                                  setState(() {
+                                                    DateFormat outoutFormat =
+                                                        DateFormat('yyyy年M月d日');
+                                                    batolDateTime = outoutFormat
+                                                        .format(date!);
+                                                  });
+                                                });
+                                              },
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
-                                )),
-                                Container(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                  Padding(
+                                      padding: EdgeInsets.fromLTRB(
+                                          5.0, 5.0, 25.0, 5.0)),
+                                  Column(
+                                    children: <Widget>[
+                                      Container(
+                                          child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            WidgetSpan(
+                                              child: Icon(
+                                                  Icons.location_on_outlined,
+                                                  color: Colors.white70,
+                                                  size: 16),
+                                            ),
+                                            TextSpan(
+                                              text: '希望する開催場所',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.white70),
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+                                      Container(
+                                        child: TextButton(
+                                          onPressed: () {
+                                            _showModalPicker(context);
+                                          },
+                                          child: Text(
+                                            _selectedItem,
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.blueAccent),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.fromLTRB(15.0, 20.0, 15.0, 20.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color(0x9E3CB371)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                          child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            WidgetSpan(
+                                              child: Icon(
+                                                  Icons.star_rate_outlined,
+                                                  size: 16,
+                                                  color: Colors.white70),
+                                            ),
+                                            TextSpan(
+                                              text: '希望する相手レベル',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.white70),
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+                                      Container(
+                                        child: MyStatefulWidget(),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                      padding: EdgeInsets.fromLTRB(
+                                          5.0, 5.0, 5.0, 5.0)),
+                                  Column(
                                     children: <Widget>[
                                       TextButton(
+                                        onPressed: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (_) => AlertDialog(
+                                                    content:
+                                                        SingleChildScrollView(
+                                                      child: ListBody(
+                                                        children: const <
+                                                            Widget>[
+                                                          Text('Lev.1： 初心者のみ'),
+                                                          Text(
+                                                              'Lev.2： 初心者(多)＆経験者(少)'),
+                                                          Text(
+                                                              'Lev.3： 初心者(少)＆経験者(多)'),
+                                                          Text('Lev.4： 経験者のみ'),
+                                                          Text(
+                                                              'Lev.5： 経験者のみ（上級）'),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        child:
+                                                            const Text('閉じる'),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ));
+                                        },
                                         child: Text(
-                                          '選択してください',
+                                          '詳細',
                                           style: TextStyle(
                                               fontSize: 14,
-                                              color: Colors.black),
+                                              color: Colors.blueAccent),
                                         ),
-                                        onPressed: () {
-                                          showDatePicker(
-                                                  context: context,
-                                                  initialDate: DateTime(2021),
-                                                  firstDate: DateTime(2021),
-                                                  lastDate: DateTime(2023))
-                                              .then((date) {
-                                            setState(() {
-                                              _dateTime = date!;
-                                            });
-                                          });
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                                padding:
-                                    EdgeInsets.fromLTRB(5.0, 5.0, 25.0, 5.0)),
-                            Column(
-                              children: <Widget>[
-                                Container(
-                                    child: RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      WidgetSpan(
-                                        child: Icon(Icons.location_on_outlined,
-                                            size: 16),
-                                      ),
-                                      TextSpan(
-                                        text: '希望する開催場所',
-                                        style: TextStyle(
-                                            fontSize: 14, color: Colors.black),
                                       ),
                                     ],
                                   ),
-                                )),
-                                Container(
-                                  child: TextButton(
-                                    onPressed: () {
-                                      _showModalPicker(context);
-                                    },
-                                    child: Text(
-                                      _selectedItem,
-                                      style: TextStyle(
-                                          fontSize: 14, color: Colors.black),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 20.0, 15.0, 20.0),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xADE0FFC7)),
+                    padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                    child: RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      WidgetSpan(
-                                        child: Icon(Icons.star_rate_outlined,
-                                            size: 16),
-                                      ),
-                                      TextSpan(
-                                        text: '希望する相手レベル',
-                                        style: TextStyle(
-                                            fontSize: 14, color: Colors.black),
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                                Container(
-                                  child: Text('プルダウンを選択'),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                                padding:
-                                    EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0)),
-                            Column(
-                              children: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (_) => AlertDialog(
-                                              content: SingleChildScrollView(
-                                                child: ListBody(
-                                                  children: const <Widget>[
-                                                    Text('Lev.1： 初心者'),
-                                                    Text(
-                                                        'Lev.2： 初心者(多)＆経験者(少)'),
-                                                    Text(
-                                                        'Lev.3： 初心者(少)＆経験者(多)'),
-                                                    Text('Lev.4： 経験者のみ'),
-                                                    Text('Lev.5： 経験者のみ（上級）'),
-                                                  ],
-                                                ),
-                                              ),
-                                              actions: <Widget>[
-                                                TextButton(
-                                                  child: const Text('閉じる'),
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                ),
-                                              ],
-                                            ));
-                                  },
-                                  child: Text(
-                                    '詳細',
-                                    style: TextStyle(
-                                        fontSize: 14, color: Colors.black),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 20.0, 15.0, 20.0),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xADE0FFC7)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                    child: RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      WidgetSpan(
-                                        child: Icon(Icons.paste_outlined,
-                                            size: 16),
-                                      ),
-                                      TextSpan(
-                                        text: 'その他伝えたいこと',
-                                        style: TextStyle(
-                                            fontSize: 14, color: Colors.black),
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                                Container(
-                                    alignment: Alignment.center,
-                                    child: Container(
-                                      width: 300,
-                                      height: 100,
-                                      child: TextField(
-                                        enabled: true,
-                                        style: TextStyle(color: Colors.black),
-                                        obscureText: false,
-                                        maxLines: 4,
-                                        decoration: const InputDecoration(
-                                          hintText: 'ex）全員初心者です。\n'
-                                              'ex）平均年齢30歳を超えです。\n'
-                                              'ex）お台場駅周辺で対戦希望です。\n',
+                        Container(
+                          padding: EdgeInsets.fromLTRB(15.0, 20.0, 15.0, 20.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color(0x9E3CB371)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                          child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            WidgetSpan(
+                                              child: Icon(Icons.paste_outlined,
+                                                  size: 16,
+                                                  color: Colors.white70),
+                                            ),
+                                            TextSpan(
+                                              text: 'その他伝えたいこと',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.white70),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                    )),
-                              ],
-                            ),
-                          ],
-                        ),
+                                      )),
+                                      Container(
+                                          alignment: Alignment.center,
+                                          child: Container(
+                                            width: 280,
+                                            height: 100,
+                                            child: TextField(
+                                              enabled: true,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                              obscureText: false,
+                                              maxLines: 4,
+                                              decoration: const InputDecoration(
+                                                hintText: 'ex）全員初心者です。\n'
+                                                    'ex）平均年齢30歳を超えです。\n'
+                                                    'ex）お台場駅周辺で対戦希望です。\n',
+                                                hintStyle: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          )),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   )
@@ -376,7 +444,52 @@ class _SubscriptionState extends State<Subscription> {
               icon: Icon(Icons.sports_kabaddi_sharp),
               label: Text('チケットを発行'),
               backgroundColor: const Color(0xFFFF9426),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: const <Widget>[
+                                Text('チケットを発行しますがよろしいでしょうか'),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            FloatingActionButton(
+                              child: const Text('はい'),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                          content: SingleChildScrollView(
+                                            child: ListBody(
+                                              children: const <Widget>[
+                                                Text('チケットを発行しました。\n'
+                                                    '対戦相手から連絡が来るまで少々お待ちください。'),
+                                              ],
+                                            ),
+                                          ),
+                                          actions: <Widget>[
+                                            FloatingActionButton(
+                                              child: const Text('閉じる'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        ));
+                              },
+                            ),
+                            FloatingActionButton(
+                              child: const Text('いいえ'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        ));
+              },
             ),
           ),
         ],
@@ -406,6 +519,7 @@ class _SubscriptionState extends State<Subscription> {
   }
 
   String _selectedItem = '選択してください';
+
   final List<String> _items = [
     "北海道",
     "青森県",
@@ -467,5 +581,47 @@ class _SubscriptionState extends State<Subscription> {
     setState(() {
       _selectedItem = _items[index];
     });
+  }
+}
+
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({Key? key}) : super(key: key);
+
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
+
+/// This is the private State class that goes with MyStatefulWidget.
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  String dropdownValue = '選択してください';
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: const Icon(
+        Icons.arrow_drop_down_circle_outlined,
+        color: Colors.white,
+      ),
+      iconSize: 24,
+      elevation: 16,
+      style: const TextStyle(color: Colors.black),
+      underline: Container(
+        height: 2,
+        color: Colors.white,
+      ),
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownValue = newValue!;
+        });
+      },
+      items: <String>['選択してください', 'lev.1', 'lev.2', 'lev.3', 'lev.4', 'lev.5']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
   }
 }
