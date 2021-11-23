@@ -74,8 +74,8 @@ class SearchModel extends ChangeNotifier {
     /// 他社開催予定
     QuerySnapshot _publicSnap = await FirebaseFirestore.instance
         .collection('BATOL_TBL')
-        // .where('isPublic', isEqualTo: true)
-        // .orderBy('updatedAt', descending: true)
+    // .where('isPublic', isEqualTo: true)
+    // .orderBy('updatedAt', descending: true)
         .limit(this.loadLimit)
         .get();
 
@@ -91,7 +91,9 @@ class SearchModel extends ChangeNotifier {
       this.canLoadMore = false;
       this.lastVisible = _publicSnap.docs[_publicSnap.docs.length - 1];
       final _publicFootsalBatol =
-          _publicSnap.docs.map((doc) => Batol(doc)).toList();
+      _publicSnap.docs.map((doc) => Batol(doc)).toList();
+
+
       this.FootsalBatol = _publicFootsalBatol;
     } else {
       /// 10件以上存在する場合
@@ -99,7 +101,7 @@ class SearchModel extends ChangeNotifier {
       this.canLoadMore = true;
       this.lastVisible = _publicSnap.docs[_publicSnap.docs.length - 1];
       final _publicFootsalBatol =
-          _publicSnap.docs.map((doc) => Batol(doc)).toList();
+      _publicSnap.docs.map((doc) => Batol(doc)).toList();
       this.FootsalBatol = _publicFootsalBatol;
     }
 
@@ -114,8 +116,8 @@ class SearchModel extends ChangeNotifier {
 
     QuerySnapshot _snap = await FirebaseFirestore.instance
         .collection('BATOL_TBL')
-        // .where('isPublic', isEqualTo: true)
-        // .orderBy('updatedAt', descending: true)
+    // .where('isPublic', isEqualTo: true)
+    // .orderBy('updatedAt', descending: true)
         .startAfterDocument(this.lastVisible)
         .limit(this.loadLimit)
         .get();
@@ -196,7 +198,7 @@ class SearchModel extends ChangeNotifier {
     endPublicBatolFiltering();
     notifyListeners();
   }
-  
+
 
   Future<void> loadMoreFilteredPublicFootsalBatol() async {
     startLoadingMorePublicBatol();
@@ -247,7 +249,7 @@ class SearchModel extends ChangeNotifier {
     this.isLoading = false;
     notifyListeners();
   }
-  
+
   void startLoadingMorePublicBatol() {
     this.isLoadingMore = true;
     notifyListeners();
@@ -257,7 +259,7 @@ class SearchModel extends ChangeNotifier {
     this.isLoadingMore = false;
     notifyListeners();
   }
-  
+
   void startPublicBatolFiltering() {
     this.isFiltering = true;
     notifyListeners();
@@ -267,7 +269,7 @@ class SearchModel extends ChangeNotifier {
     this.isFiltering = false;
     notifyListeners();
   }
-  
+
   void hidePublicLoadingWidget() {
     this.showReloadWidget = false;
     notifyListeners();
@@ -292,4 +294,4 @@ class Batol {
   late String location;
   String reservedFlg = '0';
   late String teamName;
-  }
+}

@@ -29,6 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   provider: ^5.0.0
   path_provider: ^2.0.2
@@ -43,6 +45,7 @@ dependencies:
   flutter_picker: ^2.0.2
   #vibrate: ^0.0.4
   intl: ^0.17.0
+
 
 
 
