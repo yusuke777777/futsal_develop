@@ -8,19 +8,28 @@ import './01_signup_model.dart';
 import './../02_home.dart';
 import './../user_policy/01_user_policy_page.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
+  @override
+  _SignUpPageState createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   final mailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmController = TextEditingController();
   var teamNameCtl = TextEditingController();
   var memberNameCtl = TextEditingController();
-  var levelCtl = TextEditingController();
+  // var levelCtl = TextEditingController();
   var activeLocationCtl = TextEditingController();
   var missionCtl = TextEditingController();
   var addressCtl = TextEditingController();
+  String dropdownLevelValue = '選択してください';
 
   @override
   Widget build(BuildContext context) {
+    final double deviceHeight = MediaQuery.of(context).size.height;
+    final double deviceWidth = MediaQuery.of(context).size.width;
+
     return WillPopScope(
       onWillPop: willPopCallback,
       child: ChangeNotifierProvider<SignUpModel>(
@@ -129,12 +138,33 @@ class SignUpPage extends StatelessWidget {
                               SizedBox(
                                 height: 16,
                               ),
-                              TextFormField(
-                                controller: levelCtl,
-                                maxLines: 1,
-                                decoration: InputDecoration(
-                                  labelText: 'チームレベル',
-                                  border: OutlineInputBorder(),
+                              Container(
+                                width: deviceWidth * 0.95,
+                                height: deviceHeight *0.065,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black54),
+                                  borderRadius: BorderRadius.circular(5)),
+                                child: DropdownButton<String>(
+                                  value: dropdownLevelValue,
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down_circle_outlined,
+                                    color: Colors.black54,
+                                  ),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: const TextStyle(color: Colors.black54),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      dropdownLevelValue = newValue!;
+                                    });
+                                  },
+                                  items: <String>['選択してください', 'lev.1', 'lev.2', 'lev.3', 'lev.4', 'lev.5']
+                                      .map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value,style:TextStyle(color: Colors.black54,fontSize: 16)),
+                                    );
+                                  }).toList(),
                                 ),
                               ),
                               SizedBox(
@@ -248,7 +278,7 @@ class SignUpPage extends StatelessWidget {
                                             model.teamName = teamNameCtl.text;
                                             model.memberName =
                                                 memberNameCtl.text;
-                                            model.level = levelCtl.text;
+                                            model.level = dropdownLevelValue;
                                             model.activeLocation =
                                                 activeLocationCtl.text;
                                             model.mission = missionCtl.text;

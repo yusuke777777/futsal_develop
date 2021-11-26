@@ -8,7 +8,6 @@ import '../02_home.dart';
 import '../../common/01_will_pop_scope.dart';
 import 'package:provider/provider.dart';
 import '01_subscription_model.dart';
-import './../common/01_level_list.dart';
 
 class Subscription extends StatefulWidget {
   @override
@@ -17,6 +16,7 @@ class Subscription extends StatefulWidget {
 
 class _SubscriptionState extends State<Subscription> {
   String batolDateTime = "選択してください";
+  String dropdownLevelValue = '選択してください';
   var freeSpaceCtl = TextEditingController();
 
   @override
@@ -365,7 +365,32 @@ class _SubscriptionState extends State<Subscription> {
                                                         ),
                                                       )),
                                                   Container(
-                                                    child: LevelListGet(),
+                                                    child: DropdownButton<String>(
+                                                      value: dropdownLevelValue,
+                                                      icon: const Icon(
+                                                        Icons.arrow_drop_down_circle_outlined,
+                                                        color: Colors.white,
+                                                      ),
+                                                      iconSize: 24,
+                                                      elevation: 16,
+                                                      style: const TextStyle(color: Colors.black),
+                                                      underline: Container(
+                                                        height: 2,
+                                                        color: Colors.white,
+                                                      ),
+                                                      onChanged: (String? newValue) {
+                                                        setState(() {
+                                                          dropdownLevelValue = newValue!;
+                                                        });
+                                                      },
+                                                      items: <String>['選択してください', 'lev.1', 'lev.2', 'lev.3', 'lev.4', 'lev.5']
+                                                          .map<DropdownMenuItem<String>>((String value) {
+                                                        return DropdownMenuItem<String>(
+                                                          value: value,
+                                                          child: Text(value),
+                                                        );
+                                                      }).toList(),
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -542,7 +567,7 @@ class _SubscriptionState extends State<Subscription> {
                                       child: const Text('はい'),
                                       onPressed: () async {
                                         model.batolDate = batolDateTime;
-                                        model.desiredLevel = '初心者';
+                                        model.desiredLevel = dropdownLevelValue;
                                         model.freespace = freeSpaceCtl.text;
                                         model.location = _selectedItem;
                                         await model.batol();
